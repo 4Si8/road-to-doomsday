@@ -4,13 +4,23 @@ A catalog-only Stremio/Nuvio addon with three rows, each in watch order:
 
 | Catalog | Items | What's in it |
 |---------|-------|--------------|
-| Road to Doomsday: Full Order | 27 | Everything in [WATCH_ORDER.md](WATCH_ORDER.md) |
-| Road to Doomsday: Essentials | 17 | ⭐ titles only |
+| Road to Doomsday: Full Order | 28 | Everything in [WATCH_ORDER.md](WATCH_ORDER.md) |
+| Road to Doomsday: Essentials | 18 | ⭐ titles only |
 | Road to Doomsday: Speedrun | 9 | The ~21-hour short path |
 
 Items use real IMDb IDs, so Nuvio's metadata and stream addons work on them as normal. Each card is numbered (`9. Avengers: Endgame (Encore)`), and the description explains why the title matters for Doomsday.
 
 The addon is plain static JSON and needs no runtime. It's built with PowerShell, which Windows already has.
+
+## Install
+
+In Nuvio, go to **Settings → Addons → Add Addon** and paste:
+
+```
+https://4si8.github.io/road-to-doomsday/manifest.json
+```
+
+The addon is hosted on GitHub Pages and redeploys on every push to `main`.
 
 ## Files
 

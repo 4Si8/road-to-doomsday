@@ -53,9 +53,9 @@ foreach ($c in $catalogs) {
 
 $manifest = [ordered]@{
     id          = 'community.road-to-doomsday'
-    version     = '1.0.0'
+    version     = '1.1.0'
     name        = 'Road to Doomsday'
-    description = 'Every movie and series to watch before Avengers: Doomsday (Dec 18, 2026), in order. Combines Marvel''s official Disney+ list, Rotten Tomatoes and marvelwatchlist.com.'
+    description = 'Every movie and series to watch before Avengers: Doomsday (Dec 18, 2026), in order. Combines Marvel''s official Disney+ list, Rotten Tomatoes, marvelwatchlist.com, 9to5Marvel and Murphy''s Multiverse.'
     logo        = 'https://images.metahub.space/logo/medium/tt21357150/img'
     background  = 'https://images.metahub.space/background/medium/tt21357150/img'
     resources   = @('catalog')
