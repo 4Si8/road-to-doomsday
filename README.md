@@ -2,11 +2,11 @@
 
 A catalog-only Stremio/Nuvio addon with three rows, each in watch order:
 
-| Catalog | Items | What's in it |
-|---------|-------|--------------|
-| Road to Doomsday: Full Order | 28 | Everything in [WATCH_ORDER.md](WATCH_ORDER.md) |
-| Road to Doomsday: Essentials | 18 | ⭐ titles only |
-| Road to Doomsday: Speedrun | 9 | The ~21-hour short path |
+| Row in Nuvio | Items | What's in it |
+|--------------|-------|--------------|
+| Road to Doomsday - Complete | 28 | Everything in [WATCH_ORDER.md](WATCH_ORDER.md) |
+| Road to Doomsday - Essentials | 18 | ⭐ titles only |
+| Road to Doomsday - Speedrun | 9 | The ~21-hour short path |
 
 Items use real IMDb IDs, so Nuvio's metadata and stream addons work on them as normal. Each card is numbered (`9. Avengers: Endgame (Encore)`), and the description explains why the title matters for Doomsday.
 
@@ -25,7 +25,7 @@ The addon is hosted on GitHub Pages and redeploys on every push to `main`.
 ## Files
 
 - `data/watchorder.json`: the list. **Edit this file**, then rebuild.
-- `build.ps1`: generates `addon/` (`manifest.json` and `catalog/movie/*.json`)
+- `build.ps1`: generates `addon/` (`manifest.json` and `catalog/<Complete|Essentials|Speedrun>/*.json`)
 - `serve.ps1`: local server with CORS, for testing in Nuvio on this PC
 - `addon/`: the built addon. This folder is the one you host.
 
@@ -53,7 +53,7 @@ Upload the **contents** of `addon/` to any static HTTPS host. It needs to serve 
 
 ## Updating the list
 
-Edit `data/watchorder.json` and run `build.ps1`. If you've hosted the addon, re-upload `addon/` and bump `version` in `build.ps1`. Fields:
+Edit `data/watchorder.json`, then commit and push to `main`. The Pages workflow rebuilds and redeploys the addon. Bump `version` in `build.ps1` so Nuvio picks up the change. To preview locally first, run `build.ps1`. Fields:
 
 - `id`: IMDb ID
 - `type`: `movie` or `series`
@@ -66,7 +66,10 @@ Order in the file is the watch order.
 
 ## Notes
 
-- Each catalog is declared as type `movie` but contains series items too, which the Stremio protocol allows because every item carries its own `type`. If your Nuvio build doesn't open the shows (Loki, WandaVision, Falcon and the Winter Soldier, Hawkeye, VisionQuest) properly from these rows, they need to be split into a separate `series` catalog.
+- **Catalog types:** each row mixes movies and series, so its catalog `type` is a custom word (`Complete`, `Essentials`, `Speedrun`) instead of `movie`. Each item still carries its own `movie`/`series` type, so it opens correctly.
+  - Nuvio titles every row as `<name> - <type>`, and that type word is where the row's name after the dash comes from.
+  - The type must stay a single URL-safe word, because Nuvio TV puts it in the request path without encoding it.
+  - If you turn off "show catalog type" in Nuvio's home settings, all three rows just read "Road to Doomsday".
 - Loki appears once, at Season 1's position. Its card says to watch Season 2 after Quantumania.
 - Endgame Encore uses the original Endgame ID (`tt4154796`), because Encore doesn't have a separate IMDb entry.
 - Posters come from metahub.space (Stremio's image CDN).
